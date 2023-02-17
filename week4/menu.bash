@@ -147,7 +147,7 @@ security_menu
 }
 
 function bl_menu() {
-	# Check if bad IPs does not exist.
+	# Check if bad IPs file does not exist.
 	if [[ ! -f badips.txt  ]]
 	then
 		echo "The badIPs.txt file does not exist yet. Downloading file..."
@@ -164,7 +164,7 @@ function bl_menu() {
 	read -p "Please select an option: " choice
 
 	case  "$choice" in
-
+	# Parse badips file to prepare for badips.cisco file generation using regex.
 	C|c)
 	    egrep -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.0' badips.txt | tee badips.nocidr
 	  	for eachip in $(cat badips.nocidr)
@@ -177,6 +177,7 @@ clear
   sleep 2
 	;;
 	D|d)
+	# Pull file for domain generation.
 	  wget https://raw.githubusercontent.com/botherder/targetedthreats/master/targetedthreats.csv -O /tmp/targetedthreats.csv
 	  awk '/domain/ {print}' /tmp/targetedthreats.csv | awk -F \" '{print $4}' | sort -u > threats.txt
 	  echo 'class-map match-any BAD_URLS' | tee ciscothreats.txt
