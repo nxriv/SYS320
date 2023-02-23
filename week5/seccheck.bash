@@ -45,7 +45,6 @@ checks "SSH UsePAM" "yes" "${cSSHPAM}" ""
 
 # Check permissions on user home dir
 
-#echo ""
 for eachDir in $(ls -l /home | egrep '^d' | awk ' { print $3 } ' )
 do
 
