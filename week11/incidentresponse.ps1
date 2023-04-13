@@ -14,39 +14,39 @@ function Save-Results {
 
     # Get running processes and their paths
 	Write-Host "Creating processes file..."
-    Get-Process | Select-Object ProcessName, Path | Export-Csv -Path "$OutputDirectory\processes.csv" -NoTypeInformation
+	Get-Process | Select-Object ProcessName, Path | Export-Csv -Path "$OutputDirectory\processes.csv" -NoTypeInformation
 
     # Get registered services and their executable paths
-	Write-Host "Creating services file..."
+    Write-Host "Creating services file..."
     Get-WmiObject -Query "SELECT * FROM Win32_Service" | Select-Object DisplayName, PathName | Export-Csv -Path "$OutputDirectory\services.csv" -NoTypeInformation
 
     # Get all TCP network sockets
-	Write-Host "Creating tcp sockets file..."
+    Write-Host "Creating tcp sockets file..."
     Get-NetTCPConnection | Export-Csv -Path "$OutputDirectory\tcpSockets.csv" -NoTypeInformation
 
     # Get all user account information
-	Write-Host "Creating User Accounts file..."
+    Write-Host "Creating User Accounts file..."
     Get-WmiObject -Class Win32_UserAccount | Export-Csv -Path "$OutputDirectory\userAccounts.csv" -NoTypeInformation
 
     # Get NetworkAdapterConfiguration information
-	Write-Host "Creating Network Adapter Configurations file..."
+    Write-Host "Creating Network Adapter Configurations file..."
     Get-WmiObject -Class Win32_NetworkAdapterConfiguration | Export-Csv -Path "$OutputDirectory\networkAdapterConfiguration.csv" -NoTypeInformation
 
     # Additional student artifacts
     # Get-EventLog: Retrieves event log information, which can be useful for tracking user activity and system events
-	Write-Host "Creating system events file..."
+    Write-Host "Creating system events file..."
     Get-EventLog -LogName System -Newest 100 | Export-Csv -Path "$OutputDirectory\systemEvents.csv" -NoTypeInformation
 
     # Get-LocalGroup: Retrieves local group information, which can be useful for determining user permissions and access
-	Write-Host "Creating local groups file..."
+    Write-Host "Creating local groups file..."
     Get-LocalGroup | Export-Csv -Path "$OutputDirectory\localGroups.csv" -NoTypeInformation
 
     # Get-ScheduledTask: Retrieves scheduled tasks, which can be useful for finding potentially malicious tasks created by an attacker
-	Write-Host "Creating scheduled tasks file..."
+    Write-Host "Creating scheduled tasks file..."
     Get-ScheduledTask | Export-Csv -Path "$OutputDirectory\scheduledTasks.csv" -NoTypeInformation
 
     # Get-Hotfix: Retrieves installed updates, which can help determine if a system is missing critical security patches
-	Write-Host "Creating hotfixes/patches file..."
+    Write-Host "Creating hotfixes/patches file..."
     Get-Hotfix | Export-Csv -Path "$OutputDirectory\hotfixes.csv" -NoTypeInformation
 }
 
