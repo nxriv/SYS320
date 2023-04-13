@@ -13,8 +13,8 @@ function Save-Results {
     param ([string]$OutputDirectory)
 
     # Get running processes and their paths
-	Write-Host "Creating processes file..."
-	Get-Process | Select-Object ProcessName, Path | Export-Csv -Path "$OutputDirectory\processes.csv" -NoTypeInformation
+    Write-Host "Creating processes file..."
+    Get-Process | Select-Object ProcessName, Path | Export-Csv -Path "$OutputDirectory\processes.csv" -NoTypeInformation
 
     # Get registered services and their executable paths
     Write-Host "Creating services file..."
